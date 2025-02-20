@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SimpleController;
+use App\Http\Controllers\ApiController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/data',[SimpleController::class,'index']);
+
+/***
+ * 
+ * Fetch first 10 products (default)
+ * GET /api/bigcommerce/products
+ * 
+ * 
+ * Fetch 5 products starting from the 10th product
+ * GET /api/bigcommerce/products?limit=5&offset=10
+ * 
+ * Fetch 20 products starting from the 50th product
+ * GET /api/bigcommerce/products?limit=20&offset=50
+ * 
+ */
+Route::get('/bigcommerce/products', [ApiController::class, 'getProducts']);
