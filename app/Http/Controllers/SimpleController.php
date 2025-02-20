@@ -6,6 +6,45 @@ use Illuminate\Http\Request;
 
 class SimpleController extends Controller
 {
+    /**
+     * Fetch products from BigCommerce API
+     *
+     * @OA\Get(
+     *     path="/api/bigcommerce/products",
+     *     summary="Retrieve products",
+     *     tags={"Products Migrate"},
+     *     @OA\Parameter(
+     *         name="limit",
+     *         in="query",
+     *         description="Number of products to retrieve",
+     *         required=false,
+     *         @OA\Schema(type="integer", default=10)
+     *     ),
+     *     @OA\Parameter(
+     *         name="offset",
+     *         in="query",
+     *         description="Pagination offset",
+     *         required=false,
+     *         @OA\Schema(type="integer", default=0)
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(
+     *                 type="object",
+     *                 @OA\Property(property="id", type="integer"),
+     *                 @OA\Property(property="name", type="string"),
+     *                 @OA\Property(property="price", type="number"),
+     *                 @OA\Property(property="availability", type="string")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(response=400, description="Invalid request"),
+     *     @OA\Response(response=500, description="Server error")
+     * )
+     */
     public function index(){
         $appURL = env('APP_URL');
         $BC_WEBHOOK_SECURITY_KEY = env('BC_WEBHOOK_SECURITY_KEY');
